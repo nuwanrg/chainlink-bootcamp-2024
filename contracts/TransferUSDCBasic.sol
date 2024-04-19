@@ -1,3 +1,4 @@
+// Begin
 //SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
@@ -5,8 +6,8 @@ pragma solidity 0.8.19;
 
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol/SafeERC20.sol";
+import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.0/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.0/token/ERC20/utils/SafeERC20.sol";
 
 /**
  * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
@@ -26,16 +27,21 @@ contract TransferUSDCBasic {
     IERC20 private immutable usdcToken;
 
     // https://docs.chain.link/ccip/supported-networks/v1_2_0/testnet#avalanche-fuji
-    address ccipRouterAddress = 0xF694E193200268f9a4868e4Aa017A0118C9a8177;
+    // address ccipRouterAddress = 0xF694E193200268f9a4868e4Aa017A0118C9a8177;
+    address ccipRouterAddress = 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59; // sepholia test net
 
     // https://docs.chain.link/resources/link-token-contracts#fuji-testnet
-    address linkAddress = 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846;
+    // address linkAddress = 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846;//fuji
+    address linkAddress = 0x779877A7B0D9E8603169DdbD7836e478b4624789; //sepholia
 
     // https://developers.circle.com/stablecoins./docs/usdc-on-test-networks
-    address usdcAddress = 0x5425890298aed601595a70AB815c96711a31Bc65;
+    // address usdcAddress = 0x5425890298aed601595a70AB815c96711a31Bc65; //fuji
+    address usdcAddress = 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238; //sepholia
 
     // https://docs.chain.link/ccip/supported-networks/v1_2_0/testnet#ethereum-sepolia
-    uint64 destinationChainSelector = 16015286601757825753;
+    // uint64 destinationChainSelector = 16015286601757825753; //sepholia
+    uint64 destinationChainSelector = 14767482510784806043; //fuji
+
 
     event UsdcTransferred(
         bytes32 messageId,
@@ -45,6 +51,7 @@ contract TransferUSDCBasic {
         uint256 ccipFee
     );
 
+    //initial setup to send usdc from sepholia to fuji
     constructor() {
         owner = msg.sender;
         ccipRouter = IRouterClient(ccipRouterAddress);
@@ -52,7 +59,7 @@ contract TransferUSDCBasic {
         usdcToken = IERC20(usdcAddress);
     }
 
-    function transferUsdcToSepolia(
+    function transferUsdcToFuji(
         address _receiver,
         uint256 _amount
     )
@@ -125,3 +132,5 @@ contract TransferUSDCBasic {
         if (amount == 0) revert NothingToWithdraw();
         IERC20(_token).transfer(_beneficiary, amount);
  }   }
+
+// End
