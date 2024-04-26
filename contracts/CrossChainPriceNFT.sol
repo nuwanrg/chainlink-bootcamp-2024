@@ -9,8 +9,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
 // Importing Chainlink contracts
-// import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
 contract CrossChainPriceNFT is ERC721, ERC721URIStorage {
     using Counters for Counters.Counter;
